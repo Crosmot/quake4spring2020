@@ -515,66 +515,66 @@ void idPlayerView::SingleView( idUserInterface *hud, const renderView_t *view, i
 	}
 
 	// draw screen blobs
-	if ( !pm_thirdPerson.GetBool() && !g_skipViewEffects.GetBool() ) {
-		for ( int i = 0 ; i < MAX_SCREEN_BLOBS ; i++ ) {
+	if ( pm_thirdPerson.GetBool() && !g_skipViewEffects.GetBool()) { //was !pm_thirdPerson.GetBool()
+		for (int i = 0; i < MAX_SCREEN_BLOBS; i++) {
 			screenBlob_t	*blob = &screenBlobs[i];
-			if ( blob->finishTime <= gameLocal.time ) {
+			if (blob->finishTime <= gameLocal.time) {
 				continue;
 			}
-			
+
 			blob->y += blob->driftAmount;
 
-			float	fade = (float)( blob->finishTime - gameLocal.time ) / ( blob->finishTime - blob->startFadeTime );
-			if ( fade > 1.0f ) {
+			float	fade = (float)(blob->finishTime - gameLocal.time) / (blob->finishTime - blob->startFadeTime);
+			if (fade > 1.0f) {
 				fade = 1.0f;
 			}
-			if ( fade ) {
-				renderSystem->SetColor4( 1,1,1,fade );
-				renderSystem->DrawStretchPic( blob->x, blob->y, blob->w, blob->h,blob->s1, blob->t1, blob->s2, blob->t2, blob->material );
+			if (fade) {
+				renderSystem->SetColor4(1, 1, 1, fade);
+				renderSystem->DrawStretchPic(blob->x, blob->y, blob->w, blob->h, blob->s1, blob->t1, blob->s2, blob->t2, blob->material);
 			}
 		}
 
 		// Render tunnel vision
-		if ( gameLocal.time < tvFinishTime ) {
-			renderSystem->SetColor4( 1.0f, 1.0f, 1.0f, tvScale * ((float)(tvFinishTime - gameLocal.time) / (float)(tvFinishTime - tvStartTime)) );
-			renderSystem->DrawStretchPic( 0.0f, 0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f, 1.0f, tunnelMaterial );
+		if (gameLocal.time < tvFinishTime) {
+			renderSystem->SetColor4(1.0f, 1.0f, 1.0f, tvScale * ((float)(tvFinishTime - gameLocal.time) / (float)(tvFinishTime - tvStartTime)));
+			renderSystem->DrawStretchPic(0.0f, 0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f, 1.0f, tunnelMaterial);
 		}
 
-		player->DrawHUD( hud );
+		player->DrawHUD(hud);
 
-			
-/*
+
+		/*
 		// tunnel vision
 		float	health = 0.0f;
 		if ( g_testHealthVision.GetFloat() != 0.0f ) {
-			health = g_testHealthVision.GetFloat();
+		health = g_testHealthVision.GetFloat();
 		} else {
-			health = player->health;
+		health = player->health;
 		}
 		float alpha = health / 100.0f;
 		if ( alpha < 0.0f ) {
-			alpha = 0.0f;
+		alpha = 0.0f;
 		}
 		if ( alpha > 1.0f ) {
-			alpha = 1.0f;
+		alpha = 1.0f;
 		}
-
 		if ( alpha < 1.0f  ) {
-			renderSystem->SetColor4( ( player->health <= 0.0f ) ? MS2SEC( gameLocal.time ) : lastDamageTime, 1.0f, 1.0f, ( player->health <= 0.0f ) ? 0.0f : alpha );
-			renderSystem->DrawStretchPic( 0.0f, 0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f, 1.0f, tunnelMaterial );
+		renderSystem->SetColor4( ( player->health <= 0.0f ) ? MS2SEC( gameLocal.time ) : lastDamageTime, 1.0f, 1.0f, ( player->health <= 0.0f ) ? 0.0f : alpha );
+		renderSystem->DrawStretchPic( 0.0f, 0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f, 1.0f, tunnelMaterial );
 		}
-*/		
+		*/
 
-		
+
 
 		// Render the object system
 		// RAVEN BEGIN
 		// twhitaker: always draw objective system
-		if ( player->objectiveSystem ) {
-			player->objectiveSystem->Redraw( gameLocal.time );
-		}		
+		if (player->objectiveSystem) {
+			player->objectiveSystem->Redraw(gameLocal.time);
+		}
 		// RAVEN END
 	}
+	//this one for if statement pm_thirdperson
 
 	// test a single material drawn over everything
 	if ( g_testPostProcess.GetString()[0] ) {
