@@ -2,6 +2,8 @@
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
+#include "../..//idlib/Dict.h"
+
 #include "../Game_local.h"
 // RAVEN BEGIN
 #include "../ai/AI.h"
@@ -1118,7 +1120,6 @@ void Cmd_Spawn_f( const idCmdArgs &args ) {
 	idVec3		org;
 	idPlayer	*player;
 	idDict		dict;
-
 	player = gameLocal.GetLocalPlayer();
 	if ( !player || !gameLocal.CheatsOk( false ) ) {
 		return;
@@ -1133,8 +1134,9 @@ void Cmd_Spawn_f( const idCmdArgs &args ) {
 
 	value = args.Argv( 1 );
 	dict.Set( "classname", value );
+	dict.Print();
 	dict.Set( "angle", va( "%f", yaw + 180 ) );
-
+	dict.Print();
 	org = player->GetPhysics()->GetOrigin() + idAngles( 0, yaw, 0 ).ToForward() * 80 + idVec3( 0, 0, 1 );
 	dict.Set( "origin", org.ToString() );
 
@@ -1145,7 +1147,7 @@ void Cmd_Spawn_f( const idCmdArgs &args ) {
 
 		dict.Set( key, value );
 	}
-
+	dict.Print();
 // RAVEN BEGIN
 // kfuller: want to know the name of the entity I spawned
 	idEntity *newEnt = NULL;

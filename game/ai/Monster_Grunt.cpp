@@ -4,6 +4,12 @@
 
 #include "../Game_local.h"
 
+#include <stdlib.h>
+
+#if !defined(__GAME_WEAPON_H__)
+	#include "../Weapon.h"
+#endif
+
 class rvMonsterGrunt : public idAI {
 public:
 
@@ -189,6 +195,88 @@ bool rvMonsterGrunt::CheckActions ( void ) {
 	return false;
 }
 
+
+
+//spawns random item or powerup in front of where monster dies
+void Cmd_Spawn_f() { 
+#ifndef _MPBETA
+	const char *key, *value;
+	int			i;
+	float		yaw;
+	idVec3		org;
+	idPlayer	*player;
+	idDict		dict;
+	player = gameLocal.GetLocalPlayer();
+
+	yaw = player->viewAngles.yaw;
+
+	int itemDropped = rand() % 14;
+	switch (itemDropped){
+		case 0:
+			value = "weapon_blaster";
+			break;
+		case 1:
+			value = "weapon_dmg";
+			break;
+		case 2:
+			value = "weapon_grenadelauncher";
+			break;
+		case 3:
+			value = "weapon_hyperblaster";
+			break;
+		case 4:
+			value = "weapon_lightninggun";
+			break;
+		case 5:
+			value = "weapon_nailgun";
+			break;
+		case 6:
+			value = "weapon_napalmgun";
+			break;
+		case 7:
+			value = "weapon_railgun";
+			break;
+		case 8:
+			value = "weapon_rocketlauncher";
+			break;
+		case 9:
+			value = "weapon_shotgun";
+			break;
+		case 10:
+			value = "powerup_quad_damage";
+			break;
+		case 11:
+			value = "powerup_haste";
+			break;
+		case 12:
+			value = "powerup_regeneration";
+			break;
+		case 13:
+			value = "powerup_invisibility";
+			break;
+		case 14:
+			value = "powerup_team_damage_mod";
+			break;
+	}
+
+	dict.Set("classname", value);
+	dict.Set("angle", va("%f", yaw + 180));
+
+	org = player->GetPhysics()->GetOrigin() + idAngles(0, yaw, 0).ToForward() * 80 + idVec3(0, 0, 1);
+	dict.Set("origin", org.ToString());
+
+	// RAVEN BEGIN
+	// kfuller: want to know the name of the entity I spawned
+	idEntity *newEnt = NULL;
+	gameLocal.SpawnEntityDef(dict, &newEnt);
+	dict.Print();
+	if (newEnt)	{
+		gameLocal.Printf("spawned entity '%s'\n", newEnt->name.c_str());
+	}
+	// RAVEN END
+#endif // !_MPBETA
+}
+
 /*
 ================
 rvMonsterGrunt::OnDeath
@@ -196,6 +284,7 @@ rvMonsterGrunt::OnDeath
 */
 void rvMonsterGrunt::OnDeath ( void ) {
 	RageStop ( );
+	Cmd_Spawn_f();
 	return idAI::OnDeath ( );
 }
 
