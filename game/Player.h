@@ -269,7 +269,8 @@ public:
 
 class idPlayer : public idActor {
 public:
-
+	bool ded = false;
+	int startdrop;
  	enum {
  		EVENT_IMPULSE = idEntity::EVENT_MAXEVENTS,
  		EVENT_EXIT_TELEPORTER,

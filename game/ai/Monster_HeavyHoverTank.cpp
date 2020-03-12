@@ -289,6 +289,9 @@ void rvMonsterHeavyHoverTank::OnDeath ( void ) {
 	args.SetVector("origin", GetPhysics()->GetOrigin());
 	args.SetInt("angle", move.current_yaw);
 	gameLocal.SpawnEntityDef(args, &dropitem);
+
+	gameLocal.GetLocalPlayer()->ded = true;
+	gameLocal.GetLocalPlayer()->startdrop = gameLocal.GetTime();
 }
 
 /*

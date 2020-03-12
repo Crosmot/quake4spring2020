@@ -968,5 +968,8 @@ void rvMonsterGladiator::OnDeath(void) {
 	args.SetInt("angle", move.current_yaw);
 	gameLocal.SpawnEntityDef(args, &dropitem);
 
+	gameLocal.GetLocalPlayer()->ded = true;
+	gameLocal.GetLocalPlayer()->startdrop = gameLocal.GetTime();
+
 	return idAI::OnDeath();
 }

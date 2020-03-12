@@ -3392,6 +3392,18 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 	
 	assert ( _hud );
 
+	if (ded){
+		char dropped[100];
+		sprintf_s(dropped, "An Item has dropped");
+		_hud->SetStateString( "item_dropped", dropped );
+		
+		if (gameLocal.GetTime() >= startdrop + 1000){
+			gameLocal.GetLocalPlayer()->ded = false;
+			_hud->SetStateString( "item_dropped" , "");
+		}
+
+	}
+
 	temp = _hud->State().GetInt ( "player_health", "-1" );
 	if ( temp != health ) {		
 		_hud->SetStateInt   ( "player_healthDelta", temp == -1 ? 0 : (temp - health) );
