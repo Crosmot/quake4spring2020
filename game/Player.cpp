@@ -68,7 +68,7 @@ const int SPECTATE_RAISE = 25;
 const int	HEALTH_PULSE		= 1000;			// Regen rate and heal leak rate (for health > 100)
 const int	ARMOR_PULSE			= 1000;			// armor ticking down due to being higher than maxarmor
 const int	AMMO_REGEN_PULSE	= 1000;			// ammo regen in Arena CTF
-const int	POWERUP_BLINKS		= 5;			// Number of times the powerup wear off sound plays
+const int	POWERUP_BLINKS		= 0;			// Number of times the powerup wear off sound plays
 const int	POWERUP_BLINK_TIME	= 1000;			// Time between powerup wear off sounds
 const float MIN_BOB_SPEED		= 5.0f;			// minimum speed to bob and play run/walk animations at
 const int	MAX_RESPAWN_TIME	= 10000;
@@ -4317,7 +4317,7 @@ float idPlayer::PowerUpModifier( int type ) {
 				break;
 
 			case PMOD_FIRERATE:
-				mod *= 0.7f;
+				mod *= 0.1f;
 				break;
 		}
 	}
@@ -4349,7 +4349,7 @@ float idPlayer::PowerUpModifier( int type ) {
 	if( PowerUpActive( POWERUP_TEAM_DAMAGE_MOD ) ) {
 		switch( type ) {
 			case PMOD_PROJECTILE_DAMAGE: {
-				mod *= 1.75f;
+				mod *= 5.00f;
 				break;
 			}
 			case PMOD_MELEE_DAMAGE: {
@@ -4357,7 +4357,7 @@ float idPlayer::PowerUpModifier( int type ) {
 				break;
 			}
 			case PMOD_FIRERATE: {
-				mod *= 0.80f;
+				mod *= 0.10f;
 				break;
 			}
 		}
@@ -4799,7 +4799,7 @@ void idPlayer::ClearPowerup( int i ) {
 		StopSound( SND_CHANNEL_POWERUP_IDLE, false );
 	}
 	
-	StopPowerUpEffect( i );
+	//StopPowerUpEffect( i );
 }
 
 /*
