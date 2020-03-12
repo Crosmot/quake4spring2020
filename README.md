@@ -20,3 +20,7 @@ repairbot,
 scientist,
 sentry,
 slimytransfer,
+
+3) Item upgrade
+
+-To test, get the haste powerup either from monster drops or the "spawn powerup_haste"/"give powerup_haste" commands
