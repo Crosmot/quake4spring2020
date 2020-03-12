@@ -1,6 +1,7 @@
 1) Enabled Third Person camera view
 
 2) Made items drop from monsters (weapons and powerups)
+
 -To test kill any of the following monsters:
 gunner,
 berseker,
