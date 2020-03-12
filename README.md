@@ -1,5 +1,21 @@
-# quake4spring2020
+1) Enabled Third Person camera view
 
-In SysCvar.cpp changed line 383 to enable third person by changing the 0 into a 1
-
-In PlayerView.cpp changed !pm_thirdPerson.GetBool() to pm_thirdPerson.GetBool()
+2) Made items drop from monsters (weapons and powerups)
+-To test kill any of the following monsters:
+gunner
+berseker
+bossbuddy
+bossmakron
+fatty
+gladiator
+grunt
+harvester
+harvesterdispersal
+heavyhovertank
+ironmaiden
+lighttank
+networkguardian
+repairbot
+scientist
+sentry
+slimytransfer
